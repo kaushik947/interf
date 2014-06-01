@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p
+{
+color:white;
+
+}
+body
+{
+background:black;
+max-width:100%;
+max-height:100%;
+}
+#a
+{
+position:absolute;
+left:45%;
+top:45%;
+background:white;
+width:10%;
+height:10%;
+}
+</style>
+<script src="./myjq.js"></script>
+<script>
+$(document).ready(function(){
+
+
+
+var flag=0;
+var lef=0;
+var tp=0;
+var h=0;
+var w=0;
+
+
+$(document).mousedown(function(event){
+
+ lef=parseInt($("#a").css("left"),10);
+ tp=parseInt($("#a").css("top"),10);
+ h=$("#a").height();
+ w=$("#a").width();
+
+ $("#a").text(lef);
+
+if(event.pageX>=lef&&event.pageX<=(lef+w)&&event.pageY<=(tp+h+4)&&event.pageY>=(tp+h-4))
+    flag=1;
+else if(event.pageX>=lef&&event.pageX<=(lef+w)&&event.pageY<=(tp+4)&&event.pageY>=(tp-4))
+    flag=2;
+else if(event.pageY>=tp&&event.pageY<=(tp+h)&&event.pageX<=(lef+w+4)&&event.pageX>=(lef+w-4))
+    flag=3;
+else if(event.pageY>=tp&&event.pageY<=(tp+h)&&event.pageX<=(lef+4)&&event.pageX>=(lef-4))
+    flag=4;
+
+
+
+});
+
+
+$(document).mousemove(function(event){
+
+
+ $("span").text(event.pageX + ", " + event.pageY+",,,"+$("#a").css("left")+","+$("#a").css("top")+lef+"flag="+flag);
+
+
+if(flag==1)
+{
+
+    if(event.pageY<tp)
+{
+
+    $("#a").animate({
+                       top:event.pageY
+                       ,height:tp-event.pageY
+
+                   },1);
+
+
+
+}
+
+else
+{
+    $("#a").animate({
+                       top:tp
+                       ,height:(event.pageY)-tp
+
+                   },1);
+}
+}
+else if(flag==2)
+{
+
+$("#a").text("hello");
+
+    if(event.pageY<tp+h)
+{
+
+    $("#a").animate({
+                       top:event.pageY
+                       ,height:h+tp-event.pageY
+
+                   },1);
+
+
+
+}
+
+else
+{
+    $("#a").animate({
+                       top:tp+h
+                       ,height:(event.pageY)-(tp+h)
+
+                   },1);
+}
+
+}
+
+
+else if(flag==3)
+{
+
+    if(event.pageX<lef)
+{
+
+    $("#a").animate({
+                       left:event.pageX
+                       ,width:lef-event.pageX
+
+                   },1);
+
+
+
+}
+
+else
+{
+    $("#a").animate({
+                       left:lef
+                       ,width:(event.pageX)-lef
+
+                   },1);
+}
+}
+
+
+else if(flag==4)
+{
+
+$("#a").text("hello");
+
+    if(event.pageX<lef+w)
+{
+
+    $("#a").animate({
+                       left:event.pageX
+                       ,width:w+lef-event.pageX
+
+                   },1);
+
+
+
+}
+
+else
+{
+    $("#a").animate({
+                       left:lef+w
+                       ,width:(event.pageX)-(lef+w)
+
+                   },1);
+}
+
+}
+
+
+
+
+
+});
+
+$(document).mouseup(function(){
+flag=0;
+
+});
+
+});
+</script>
+</head>
+<body>
+
+<p>Mouse is at coordinates: <span></span>.</p>
+<div id="a"></div>
+</body>
+</html>
